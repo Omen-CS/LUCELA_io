@@ -9,59 +9,136 @@
 body {
     margin: 0;
     font-family: 'Georgia', serif;
-    background: #f7f3ee;
-    color: #2c2c2c;
+    background: linear-gradient(to bottom, #f6f2ec, #f3ede6);
+    color: #2b2b2b;
+}
+
+/* subtle glow */
+body::before {
+    content: "";
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(212,185,150,0.15), transparent);
+    top: -100px;
+    right: -100px;
+    z-index: -1;
 }
 
 .container {
     max-width: 900px;
     margin: auto;
-    padding: 40px 20px;
+    padding: 50px 20px;
     text-align: center;
 }
 
 .logo {
-    width: 120px;
-    margin-bottom: 20px;
+    width: 140px;
 }
 
-h1 {
-    font-size: 32px;
-    letter-spacing: 4px;
+/* ANIMATION */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 1s;
 }
 
-.subtitle {
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* luxury text */
+.glow-text {
+    background: linear-gradient(90deg, #d4b996, #fff, #d4b996);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s infinite linear;
+}
+
+@keyframes shine {
+    0% { background-position: 0%; }
+    100% { background-position: 200%; }
+}
+
+.tagline {
     font-size: 14px;
-    margin-bottom: 40px;
-    color: #7a7a7a;
+    letter-spacing: 2px;
+    color: #888;
+    margin: 20px 0 40px;
+}
+
+.highlight {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #a38b6b;
+    margin-top: 20px;
+}
+
+.hero-text {
+    font-size: 28px;
+    margin: 20px 0;
+}
+
+.sub-text {
+    font-size: 15px;
+    color: #777;
+    margin-bottom: 30px;
 }
 
 img {
     width: 100%;
-    border-radius: 14px;
+    border-radius: 16px;
+    transition: 0.4s;
 }
 
-.product {
-    margin-top: 40px;
+img:hover {
+    transform: scale(1.03);
 }
 
 .price {
-    font-size: 22px;
-    margin: 15px 0;
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+/* SIZE */
+.size-btn {
+    margin: 5px;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.size-btn:hover {
+    background: #d4b996;
+    color: white;
 }
 
 .button {
     display: inline-block;
-    padding: 14px 28px;
-    background: linear-gradient(135deg, #d4b996, #c2a67f);
+    padding: 14px 30px;
+    background: linear-gradient(135deg, #d4b996, #bfa07a);
     color: white;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-top: 20px;
 }
 
 .section {
-    margin-top: 70px;
+    margin-top: 80px;
+}
+
+.po-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background: #efe8df;
+    font-size: 14px;
+    color: #555;
 }
 
 .footer {
@@ -69,56 +146,111 @@ img {
     font-size: 13px;
     color: #aaa;
 }
+
+/* sticky */
+.sticky-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #d4b996, #bfa07a);
+    color: white;
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+}
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
 
-    <!-- LOGO -->
-    <img class="logo" src="logo.png" alt="Lucela Logo">
+    <img class="logo fade-up" src="logo.png">
 
-    <div class="subtitle">
-        Effortless elegance, made for everyday
+    <div class="tagline fade-up">EFFORTLESS ELEGANCE</div>
+
+    <div class="highlight fade-up">FIRST DROP</div>
+
+    <div class="hero-text fade-up glow-text">
+        Designed for your everyday moments
     </div>
 
-    <!-- GAMBAR PRODUK LO -->
-    <img src="product.jpg" alt="Lucela Outfit">
+    <div class="sub-text fade-up">
+        A refined piece crafted with simplicity and intention.
+    </div>
 
-    <div class="product">
+    <img src="product.jpg" class="fade-up">
+
+    <div class="section fade-up">
         <h2>Lucela Cardigan</h2>
-        <p>
-            Clean silhouette with a soft premium feel.  
-            Designed for effortless everyday elegance.
-        </p>
 
         <div class="price">Rp 249.000</div>
 
+        <!-- SIZE -->
+        <div>
+            <p style="font-size:14px;">Select Size:</p>
+            <button onclick="order('S')" class="size-btn">S</button>
+            <button onclick="order('M')" class="size-btn">M</button>
+            <button onclick="order('L')" class="size-btn">L</button>
+            <button onclick="order('XL')" class="size-btn">XL</button>
+        </div>
+
+        <p style="font-size:12px; color:#999;">
+            Crafted in limited quantity
+        </p>
+
         <a class="button" href="https://wa.me/6285692126091">
-            Order via WhatsApp
+            PRE ORDER NOW
         </a>
+
+        <!-- PO -->
+        <div class="po-box">
+            <b>Pre-Order System</b><br><br>
+            • Production starts after order is confirmed<br>
+            • Estimated delivery: 7–10 days<br>
+            • Limited quantity per batch<br>
+        </div>
     </div>
 
-    <div class="section">
-        <h2>Why Lucela</h2>
-        <p>Minimal & timeless design</p>
-        <p>Soft premium material</p>
-        <p>Limited first drop</p>
+    <!-- LIMITED -->
+    <div class="section fade-up">
+        <div class="highlight">LIMITED RELEASE</div>
+        <p>
+            Only a small number of pieces will be produced.  
+            Each item is crafted with attention to detail.
+        </p>
     </div>
 
-    <div class="section">
-        <h2>Details</h2>
-        <p>• Made to order</p>
-        <p>• Estimated shipping 7–10 days</p>
-        <p>• Signature cream tone</p>
-    </div>
-
-    <div class="footer">
+    <div class="footer fade-up">
         © 2026 Lucela
     </div>
 
 </div>
+
+<a href="https://wa.me/6285692126091" class="sticky-btn">
+    ORDER NOW
+</a>
+
+<script>
+// fade animation
+const fadeEls = document.querySelectorAll('.fade-up');
+
+window.addEventListener('scroll', () => {
+    fadeEls.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+            el.classList.add('show');
+        }
+    });
+});
+
+// order size
+function order(size) {
+    window.location.href =
+    "https://wa.me/6285692126091?text=Halo%20saya%20mau%20PO%20Lucela%20Cardigan%20size%20" + size;
+}
+</script>
 
 </body>
 </html>
